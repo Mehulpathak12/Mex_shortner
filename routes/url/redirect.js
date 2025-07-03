@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Url = require('../../models/url');
 const click = require('../../models/clickCount')
+const user = require('../../models/user.model')
 const bcrypt = require('bcrypt');
 const redis = require('../../config/redisClient');
 
@@ -50,7 +51,6 @@ router.post('/:slug', async (req, res) => {
     if (!isMatch) {
       return res.render('password', { slug, error: 'Incorrect password. Try again.' });
     }
-    console.log(urlData);
     return await handleRedirect(req, res, urlData);
   } catch (err) {
     console.error(err);
@@ -70,6 +70,11 @@ async function handleRedirect(req, res, urlData) {
       userId:urlData.userId,
       ip:ip,
     })
+    const updatedUser = await user.findByIdAndUpdate(
+      urlData.userId,
+      { $inc: { 'usage.totalClicks': 1 } },
+      { new: true } 
+    );
     await markClick(urlData.slug, ip);
   }
 

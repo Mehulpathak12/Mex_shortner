@@ -17,10 +17,6 @@ app.use(login)
 app.use("/api/",apiReset)
 app.use(url)
 app.use(redirect)
-app.get("/health",(req,res)=>{
-    res.status(200).json({
-        "working":true
-    })
-})
+
 
 module.exports =  app
