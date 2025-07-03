@@ -1,6 +1,10 @@
 const { createClient } = require('redis');
 const redis = createClient({
-    url: process.env.REDIS_AIVEN
+    url: process.env.REDIS_AIVEN,
+    socket: {
+      tls: true, // ✅ This is critical for Aiven
+      rejectUnauthorized: false // optional: only if you get TLS cert errors
+    }
   });
 
 // createClient({
