@@ -3,7 +3,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 module.exports = function (req, res, next) {
   const authHeader = req.headers.authorization;
-  const tokenFromHeader = authHeader?.split(' ')[0]; // Bearer <token>
+  const tokenFromHeader = authHeader?.split(' ')[1]; // Bearer <token>
   const tokenFromCookie = req.cookies?.token;
 
   const token = tokenFromHeader || tokenFromCookie;

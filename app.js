@@ -5,7 +5,7 @@ const app = express();
 const dbConfig = require('./config/dbConfig')
 const rootDir = require('./utils/dirname')
 require('dotenv').config();
-const {home,register,login,apiReset,url,redirect,userDetail,changePWD, allURL, analytics} = require('./routes')
+const {home,register,login,apiReset,url,redirect,userDetail,changePWD, allURL, analytics, deleteURL} = require('./routes')
 dbConfig()
 app.use(cookieParser());
 app.use(express.json())
@@ -22,6 +22,7 @@ app.use("/api/",userDetail)
 app.use("/api/",changePWD) 
 app.use("/api/",allURL)
 app.use("/api/",analytics)
+app.use("/api/",deleteURL)
 app.use(redirect)
 
 module.exports =  app

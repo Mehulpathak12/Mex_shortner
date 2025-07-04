@@ -8,6 +8,7 @@ const userDetail = require('./user/user.getDetail')
 const changePWD = require('./user/user.changePassword')
 const allURL = require('./user/allUrl')
 const analytics = require('./analytics/getReport')
+const deleteURL = require('./url/deleteURL')
 module.exports = {
     home,
     register,
@@ -18,5 +19,6 @@ module.exports = {
     userDetail,
     changePWD,
     allURL,
-    analytics
+    analytics,
+    deleteURL
 }
