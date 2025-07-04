@@ -3,12 +3,14 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 module.exports = function (req, res, next) {
   const authHeader = req.headers.authorization;
+  const tokenFromHeader = authHeader?.split(' ')[0]; // Bearer <token>
+  const tokenFromCookie = req.cookies?.token;
 
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+  const token = tokenFromHeader || tokenFromCookie;
+
+  if (!token) {
     return res.status(401).json({ success: false, message: 'No token provided' });
   }
-
-  const token = authHeader.split(' ')[1];
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
